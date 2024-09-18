@@ -1,1 +1,118 @@
-/* WIP */
+.exercise {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 85px 0;
+  margin-top: 12px;
+  background-color: var(--color-neutral-50);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 12px;
+
+  & .timer {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    padding: 4px 12px;
+    font-size: var(--font-2xsm);
+    color: var(--color-foreground-subtle);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: 8px 0 0;
+  }
+
+  & .phase {
+    font-family: var(--font-display);
+    font-size: var(--font-lg);
+    font-weight: 600;
+  }
+
+  & .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    height: 40%;
+    aspect-ratio: 1 / 1;
+    background-image: radial-gradient(
+      var(--color-neutral-50),
+      var(--color-neutral-50),
+      var(--color-neutral-100)
+    );
+    border: 1px solid var(--color-neutral-200);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.selectWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  width: 80%;
+  height: 45px;
+  padding: 4px;
+  background-color: var(--color-neutral-50);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 8px;
+  transform: translate(-50%, 50%);
+
+  &::before {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    width: 80%;
+    height: 1px;
+    content: '';
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-neutral-400),
+      transparent
+    );
+    transform: translateX(-50%);
+  }
+
+  & .selectBox {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0 8px;
+    font-size: var(--font-sm);
+    color: var(--color-foreground);
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    & option {
+      color: var(--color-neutral-50);
+    }
+
+    &:disabled {
+      opacity: 0.2;
+    }
+  }
+
+  & .controlButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    color: var(--color-foreground-subtle);
+    cursor: pointer;
+    background-color: var(--color-neutral-100);
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    transition: 0.2s;
+
+    &:hover {
+      color: var(--color-foreground);
+      background-color: var(--color-neutral-200);
+    }
+  }
+}
