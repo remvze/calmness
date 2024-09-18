@@ -1,0 +1,53 @@
+---
+import { Container } from './container';
+---
+
+<Container>
+  <footer class="footer">
+    <div class="divider"></div>
+    <p class="text">
+      Created by <a href="https://x.com/remvze" rel="noreferrer" target="_blank"
+        >Maze</a
+      >.
+    </p>
+    <p class="text">
+      Source code on <a
+        href="https://github.com/remvze/calmness"
+        rel="noreferrer"
+        target="_blank">GitHub</a
+      >.
+    </p>
+  </footer>
+</Container>
+
+<style>
+  .footer {
+    padding-bottom: 50px;
+
+    & .divider {
+      width: 100%;
+      height: 1px;
+      margin-bottom: 24px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--color-neutral-200),
+        transparent,
+        transparent,
+        transparent
+      );
+    }
+
+    & .text {
+      font-size: var(--font-sm);
+      line-height: 1.6;
+      color: var(--color-foreground-subtle);
+
+      & a {
+        font-weight: 500;
+        color: var(--color-foreground);
+        text-decoration: none;
+      }
+    }
+  }
+</style>
