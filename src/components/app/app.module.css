@@ -24,7 +24,6 @@
   & .phase {
     font-family: var(--font-display);
     font-size: var(--font-lg);
-    font-weight: 600;
   }
 
   & .circle {
