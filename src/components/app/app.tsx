@@ -30,6 +30,15 @@ const PHASE_LABELS: Record<Phase, string> = {
   inhale: 'Inhale',
 };
 
+const DESC: Record<Exercise, string> = {
+  '4-7-8 Breathing':
+    'Inhale for 4 seconds, hold the breath for 7 seconds, and exhale for 8 seconds. This technique helps reduce stress and promote relaxation.',
+  'Box Breathing':
+    'Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, and hold again for 4 seconds. It enhances focus and calms the mind.',
+  'Resonant Breathing':
+    'Breathe in and out evenly, usually around 6 breaths per minute. This method balances the nervous system and improves emotional well-being.',
+};
+
 export function App() {
   const [selectedExercise, setSelectedExercise] =
     useState<Exercise>('4-7-8 Breathing');
@@ -149,6 +158,10 @@ export function App() {
             {running ? <IoIosRefresh /> : <IoIosPlay />}
           </button>
         </div>
+      </div>
+
+      <div className={styles.desc}>
+        <span>{selectedExercise}:</span> {DESC[selectedExercise]}
       </div>
     </Container>
   );
