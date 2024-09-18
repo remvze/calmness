@@ -8,18 +8,28 @@ import { padNumber } from '@/helpers/number';
 
 import styles from './app.module.css';
 
-type Exercise = 'Box Breathing' | 'Resonant Breathing' | '4-7-8 Breathing';
+type Exercise =
+  | 'Box Breathing'
+  | 'Resonant Breathing'
+  | '4-7-8 Breathing'
+  | 'Pursed Lip Breathing'
+  | 'Diaphragmatic Breathing';
+
 type Phase = 'inhale' | 'exhale' | 'holdInhale' | 'holdExhale';
 
 const EXERCISE_PHASES: Record<Exercise, Phase[]> = {
   '4-7-8 Breathing': ['inhale', 'holdInhale', 'exhale'],
   'Box Breathing': ['inhale', 'holdInhale', 'exhale', 'holdExhale'],
+  'Diaphragmatic Breathing': ['inhale', 'exhale'],
+  'Pursed Lip Breathing': ['inhale', 'exhale'],
   'Resonant Breathing': ['inhale', 'exhale'],
 };
 
 const EXERCISE_DURATIONS: Record<Exercise, Partial<Record<Phase, number>>> = {
   '4-7-8 Breathing': { exhale: 8, holdInhale: 7, inhale: 4 },
   'Box Breathing': { exhale: 4, holdExhale: 4, holdInhale: 4, inhale: 4 },
+  'Diaphragmatic Breathing': { exhale: 6, inhale: 4 },
+  'Pursed Lip Breathing': { exhale: 4, inhale: 2 },
   'Resonant Breathing': { exhale: 5, inhale: 5 },
 };
 
@@ -35,6 +45,10 @@ const DESC: Record<Exercise, string> = {
     'Inhale for 4 seconds, hold the breath for 7 seconds, and exhale for 8 seconds. This technique helps reduce stress and promote relaxation.',
   'Box Breathing':
     'Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, and hold again for 4 seconds. It enhances focus and calms the mind.',
+  'Diaphragmatic Breathing':
+    'Inhale deeply, expanding the diaphragm, for 4 seconds, and exhale for 6 seconds. This exercise improves lung efficiency and reduces stress.',
+  'Pursed Lip Breathing':
+    'Inhale through the nose for 2 seconds, exhale slowly through pursed lips for 4 seconds. It helps slow down breathing and promotes relaxation.',
   'Resonant Breathing':
     'Breathe in and out evenly, usually around 6 breaths per minute. This method balances the nervous system and improves emotional well-being.',
 };
@@ -43,7 +57,7 @@ export function App() {
   const [selectedExercise, setSelectedExercise] =
     useState<Exercise>('4-7-8 Breathing');
   const [phaseIndex, setPhaseIndex] = useState(0);
-  const [running, setRunning] = useState(false); // State to control start/reset
+  const [running, setRunning] = useState(false);
   const [timer, setTimer] = useState(0);
 
   const phases = useMemo(
@@ -134,7 +148,7 @@ export function App() {
         <div className={styles.selectWrapper}>
           <select
             className={styles.selectBox}
-            disabled={running} // Disable while running
+            disabled={running}
             value={selectedExercise}
             onChange={e => setSelectedExercise(e.target.value as Exercise)}
           >
