@@ -7,6 +7,7 @@ import { Container } from '../container';
 import { padNumber } from '@/helpers/number';
 
 import styles from './app.module.css';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
 type Exercise =
   | 'Box Breathing'
@@ -60,9 +61,16 @@ const DESC: Record<Exercise, string> = {
 export function App() {
   const [selectedExercise, setSelectedExercise] =
     useState<Exercise>('4-7-8 Breathing');
-  const [customDurations, setCustomDurations] = useState<
+
+  const [customDurations, setCustomDurations] = useLocalStorage<
     Partial<Record<Phase, number>>
-  >({ exhale: 4, holdExhale: 4, holdInhale: 4, inhale: 4 });
+  >('calmness-custom-durations', {
+    exhale: 4,
+    holdExhale: 4,
+    holdInhale: 4,
+    inhale: 4,
+  });
+
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [running, setRunning] = useState(false);
   const [timer, setTimer] = useState(0);
