@@ -13,13 +13,15 @@ type Exercise =
   | 'Resonant Breathing'
   | '4-7-8 Breathing'
   | 'Pursed Lip Breathing'
-  | 'Diaphragmatic Breathing';
+  | 'Diaphragmatic Breathing'
+  | 'Custom';
 
 type Phase = 'inhale' | 'exhale' | 'holdInhale' | 'holdExhale';
 
 const EXERCISE_PHASES: Record<Exercise, Phase[]> = {
   '4-7-8 Breathing': ['inhale', 'holdInhale', 'exhale'],
   'Box Breathing': ['inhale', 'holdInhale', 'exhale', 'holdExhale'],
+  Custom: ['inhale', 'holdInhale', 'exhale', 'holdExhale'],
   'Diaphragmatic Breathing': ['inhale', 'exhale'],
   'Pursed Lip Breathing': ['inhale', 'exhale'],
   'Resonant Breathing': ['inhale', 'exhale'],
@@ -28,6 +30,7 @@ const EXERCISE_PHASES: Record<Exercise, Phase[]> = {
 const EXERCISE_DURATIONS: Record<Exercise, Partial<Record<Phase, number>>> = {
   '4-7-8 Breathing': { exhale: 8, holdInhale: 7, inhale: 4 },
   'Box Breathing': { exhale: 4, holdExhale: 4, holdInhale: 4, inhale: 4 },
+  Custom: {},
   'Diaphragmatic Breathing': { exhale: 6, inhale: 4 },
   'Pursed Lip Breathing': { exhale: 4, inhale: 2 },
   'Resonant Breathing': { exhale: 5, inhale: 5 },
@@ -45,6 +48,7 @@ const DESC: Record<Exercise, string> = {
     'Inhale for 4 seconds, hold the breath for 7 seconds, and exhale for 8 seconds. This technique helps reduce stress and promote relaxation.',
   'Box Breathing':
     'Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, and hold again for 4 seconds. It enhances focus and calms the mind.',
+  Custom: 'Create your own custom breathing exercise.',
   'Diaphragmatic Breathing':
     'Inhale deeply, expanding the diaphragm, for 4 seconds, and exhale for 6 seconds. This exercise improves lung efficiency and reduces stress.',
   'Pursed Lip Breathing':
@@ -56,17 +60,26 @@ const DESC: Record<Exercise, string> = {
 export function App() {
   const [selectedExercise, setSelectedExercise] =
     useState<Exercise>('4-7-8 Breathing');
+  const [customDurations, setCustomDurations] = useState<
+    Partial<Record<Phase, number>>
+  >({ exhale: 4, holdExhale: 4, holdInhale: 4, inhale: 4 });
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [running, setRunning] = useState(false);
   const [timer, setTimer] = useState(0);
 
+  const durations = useMemo(() => {
+    if (selectedExercise === 'Custom') {
+      return customDurations;
+    }
+    return EXERCISE_DURATIONS[selectedExercise];
+  }, [selectedExercise, customDurations]);
+
   const phases = useMemo(
-    () => EXERCISE_PHASES[selectedExercise],
-    [selectedExercise],
-  );
-  const durations = useMemo(
-    () => EXERCISE_DURATIONS[selectedExercise],
-    [selectedExercise],
+    () =>
+      EXERCISE_PHASES[selectedExercise].filter(
+        phase => (durations[phase] || 0) > 0,
+      ),
+    [selectedExercise, customDurations],
   );
 
   const currentPhase = phases[phaseIndex];
@@ -152,11 +165,14 @@ export function App() {
             value={selectedExercise}
             onChange={e => setSelectedExercise(e.target.value as Exercise)}
           >
-            {Object.keys(EXERCISE_PHASES).map(exercise => (
-              <option key={exercise} value={exercise}>
-                {exercise}
-              </option>
-            ))}
+            {Object.keys(EXERCISE_PHASES)
+              .filter(phase => phase !== 'Custom')
+              .map(exercise => (
+                <option key={exercise} value={exercise}>
+                  {exercise}
+                </option>
+              ))}
+            <option value="Custom">Custom</option>
           </select>
 
           <button
@@ -174,9 +190,36 @@ export function App() {
         </div>
       </div>
 
-      <div className={styles.desc}>
-        <span>{selectedExercise}:</span> {DESC[selectedExercise]}
-      </div>
+      {selectedExercise === 'Custom' && (
+        <div className={styles.customForm}>
+          {['inhale', 'holdInhale', 'exhale', 'holdExhale'].map(phase => (
+            <div className={styles.field} key={phase}>
+              <label htmlFor={phase}>
+                {PHASE_LABELS[phase as Phase]} Duration:
+              </label>
+              <input
+                disabled={running}
+                id={phase}
+                min="0"
+                type="number"
+                value={customDurations[phase as Phase]}
+                onChange={e =>
+                  setCustomDurations(prev => ({
+                    ...prev,
+                    [phase]: Number(e.target.value),
+                  }))
+                }
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {selectedExercise !== 'Custom' && (
+        <div className={styles.desc}>
+          <span>{selectedExercise}:</span> {DESC[selectedExercise]}
+        </div>
+      )}
     </Container>
   );
 }
