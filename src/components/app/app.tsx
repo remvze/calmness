@@ -1,13 +1,15 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { IoIosPlay, IoIosRefresh } from 'react-icons/io';
+import { BsFillVolumeUpFill, BsFillVolumeMuteFill } from 'react-icons/bs';
 
 import { Container } from '../container';
 
 import { padNumber } from '@/helpers/number';
+import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useSound } from '@/hooks/use-sound';
 
 import styles from './app.module.css';
-import { useLocalStorage } from '@/hooks/use-local-storage';
 
 type Exercise =
   | 'Box Breathing'
@@ -75,6 +77,9 @@ export function App() {
   const [running, setRunning] = useState(false);
   const [timer, setTimer] = useState(0);
 
+  const playSound = useSound('/chime.mp3');
+  const [muted, setMuted] = useState(true);
+
   const durations = useMemo(() => {
     if (selectedExercise === 'Custom') {
       return customDurations;
@@ -121,9 +126,11 @@ export function App() {
 
   const updatePhase = useCallback(() => {
     if (running) {
+      if (!muted) playSound();
+
       setPhaseIndex(prevIndex => (prevIndex + 1) % phases.length);
     }
-  }, [phases.length, running]);
+  }, [phases.length, running, playSound, muted]);
 
   useEffect(() => {
     resetExercise();
@@ -152,6 +159,13 @@ export function App() {
         <div className={styles.timer}>
           {padNumber(Math.floor(timer / 60))}:{padNumber(timer % 60)}
         </div>
+
+        <button
+          className={styles.audio}
+          onClick={() => setMuted(prev => !prev)}
+        >
+          {muted ? <BsFillVolumeMuteFill /> : <BsFillVolumeUpFill />}
+        </button>
 
         {running && (
           <motion.div

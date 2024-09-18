@@ -21,6 +21,29 @@
     border-radius: 8px 0 0;
   }
 
+  & .audio {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: var(--color-foreground-subtle);
+    cursor: pointer;
+    background-color: var(--color-neutral-100);
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.2s;
+
+    &:hover {
+      color: var(--color-foreground);
+      background-color: var(--color-neutral-200);
+    }
+  }
+
   & .phase {
     font-family: var(--font-display);
     font-size: var(--font-lg);
