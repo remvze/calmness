@@ -1,0 +1,27 @@
+---
+import { Container } from './container';
+---
+
+<Container>
+  <section class="hero">
+    <h1 class="title">Calmness</h1>
+    <p class="desc">Online breathing exercise tool.</p>
+  </section>
+</Container>
+
+<style>
+  .hero {
+    padding: 100px 0 30px;
+
+    & .title {
+      font-family: var(--font-display);
+      font-size: var(--font-xlg);
+      color: var(--color-foreground);
+    }
+
+    & .desc {
+      line-height: 1.6;
+      color: var(--color-foreground-subtle);
+    }
+  }
+</style>
