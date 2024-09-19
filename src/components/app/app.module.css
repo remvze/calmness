@@ -33,7 +33,6 @@
     transform: translateX(-50%);
 
     & .progress {
-      width: 40%;
       height: 100%;
       background-color: var(--color-neutral-950);
       transition: 1s;
