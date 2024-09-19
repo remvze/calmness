@@ -4,6 +4,13 @@ import { Container } from './container';
 
 <Container>
   <section class="hero">
+    <img
+      alt="Calmness Logo"
+      class="logo"
+      height="36"
+      src="/logo.svg"
+      width="36"
+    />
     <h1 class="title">Calmness</h1>
     <p class="desc">Online breathing exercise tool.</p>
   </section>
@@ -13,6 +20,18 @@ import { Container } from './container';
   .hero {
     padding: 100px 0 30px;
 
+    .logo {
+      display: block;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 12px;
+      opacity: 0.2;
+      animation-name: rotate;
+      animation-duration: 45s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
     & .title {
       font-family: var(--font-display);
       font-size: var(--font-xlg);
@@ -20,8 +39,19 @@ import { Container } from './container';
     }
 
     & .desc {
+      margin-top: -4px;
       line-height: 1.6;
       color: var(--color-foreground-subtle);
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
     }
   }
 </style>
