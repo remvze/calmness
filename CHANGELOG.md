@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/remvze/calmness/compare/v0.0.1...v0.0.2) (2024-09-19)
+
+
+### 💄 Styling
+
+* change exercise to exercises ([6c48376](https://github.com/remvze/calmness/commit/6c483762cc5f72116f7d4aabd40bb042de23b59d))
+
 ### 0.0.1 (2024-09-19)
 
 
