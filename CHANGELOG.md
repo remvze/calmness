@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/remvze/calmness/compare/v0.0.3...v0.0.4) (2024-09-19)
+
+
+### 🐛 Bug Fixes
+
+* change progress logic ([052e119](https://github.com/remvze/calmness/commit/052e11918b711f6d86aad1ec9b6334ff97dae2f2))
+
 ### [0.0.3](https://github.com/remvze/calmness/compare/v0.0.2...v0.0.3) (2024-09-19)
 
 
