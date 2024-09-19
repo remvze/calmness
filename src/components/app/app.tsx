@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { IoIosPlay, IoIosRefresh } from 'react-icons/io';
 import { BsFillVolumeUpFill, BsFillVolumeMuteFill } from 'react-icons/bs';
@@ -79,6 +79,11 @@ export function App() {
 
   const playSound = useSound('/chime.mp3');
   const [muted, setMuted] = useState(true);
+  const mutedRef = useRef(false);
+
+  useEffect(() => {
+    mutedRef.current = muted;
+  }, [muted]);
 
   const durations = useMemo(() => {
     if (selectedExercise === 'Custom') {
@@ -126,11 +131,11 @@ export function App() {
 
   const updatePhase = useCallback(() => {
     if (running) {
-      if (!muted) playSound();
+      if (!mutedRef.current) playSound();
 
       setPhaseIndex(prevIndex => (prevIndex + 1) % phases.length);
     }
-  }, [phases.length, running, playSound, muted]);
+  }, [phases.length, running, playSound]);
 
   useEffect(() => {
     resetExercise();
