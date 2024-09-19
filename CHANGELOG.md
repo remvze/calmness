@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/remvze/calmness/compare/v0.0.4...v0.0.5) (2024-09-19)
+
+
+### 🐛 Bug Fixes
+
+* change muted state ([21daeaf](https://github.com/remvze/calmness/commit/21daeaf4d51bd8f510b5c842f95a8d9749e61059))
+
 ### [0.0.4](https://github.com/remvze/calmness/compare/v0.0.3...v0.0.4) (2024-09-19)
 
 
