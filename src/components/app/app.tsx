@@ -76,6 +76,7 @@ export function App() {
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [running, setRunning] = useState(false);
   const [timer, setTimer] = useState(0);
+  const [currentDuration, setCurrentDuration] = useState(0);
 
   const playSound = useSound('/chime.mp3');
   const [muted, setMuted] = useState(true);
@@ -153,12 +154,29 @@ export function App() {
     }
   }, [running]);
 
+  useEffect(() => {
+    const duration = durations[currentPhase] || 0;
+
+    setCurrentDuration(duration - 1);
+  }, [currentPhase, durations]);
+
   return (
     <Container>
       <div className={styles.exercise}>
         <div className={styles.timer}>
           {padNumber(Math.floor(timer / 60))}:{padNumber(timer % 60)}
         </div>
+
+        {running && (
+          <div className={styles.progressbar} key={`phase-${currentPhase}`}>
+            <motion.div
+              animate={{ width: '100%' }}
+              className={styles.progress}
+              initial={{ width: '0%' }}
+              transition={{ duration: currentDuration, ease: 'linear' }}
+            />
+          </div>
+        )}
 
         <button
           className={styles.audio}
