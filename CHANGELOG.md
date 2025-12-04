@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/remvze/calmness/compare/v0.0.5...v0.1.0) (2025-12-04)
+
+
+### 🚚 Chores
+
+* update the domain ([faae93f](https://github.com/remvze/calmness/commit/faae93f0919a1346696125f7abdeaac8868f131c))
+
+
+### ✨ Features
+
+* remake ([f091a9d](https://github.com/remvze/calmness/commit/f091a9d35b42881769290aba6c6ceb2a7d093763))
+
 ### [0.0.5](https://github.com/remvze/calmness/compare/v0.0.4...v0.0.5) (2024-09-19)
 
 
